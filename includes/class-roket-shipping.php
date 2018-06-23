@@ -6,6 +6,7 @@ class Roket_Shipping
 {
 
 	private static $_instance = null;
+	private $_model = null;
 	public $setting = null;
 	public $_version;
 	public $file;
@@ -38,6 +39,11 @@ class Roket_Shipping
 		}
 
 		register_activation_hook( $this->file, array( $this, 'install' ) );
+
+		// Load general configuration.
+		$this->_model = new Roket_Shipping_Model();
+		add_filter( 'roket_shipping_add_kurir_fields',  array( $this->_model, 'get_all_kurir_fields') );
+
 
 		// Load frontend JS & CSS
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );

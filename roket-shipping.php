@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // Load plugin class files
 require('includes/class-roket-shipping.php');
 require('includes/class-roket-shipping-method.php');
+require('includes/class-roket-shipping-api.php');
+require('includes/class-roket-shipping-model.php');
 
 /**
  * Returns the main instance of Roket_Shipping to prevent the need to use globals.

@@ -22,11 +22,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 					$this->enabled = $this->get_option('enabled', 'yes');
                     $this->title = $this->get_option('title', __( 'Roket Sihpping' ));
-      				
-      				// Get Config
-      				require( __DIR__ .'/../config.php');
-      				$this->roket_shipping_config = $roket_shipping_config;
-					
+
 					$this->init();
 				}
 
@@ -73,8 +69,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				              ),
 				         );
 					$kurir_form_fields = array();
-					foreach ($this->roket_shipping_config['kurir'] as $kurir) {
-						array_push($kurir_form_fields, $kurir['field_option']);
+					$rs_kurirs = apply_filters('roket_shipping_add_kurir_fields','');
+					foreach ($rs_kurirs as $kurir) {
+						if ( isset($kurir['field_option']) )
+							array_push($kurir_form_fields, $kurir['field_option']);
 					}
 					$this->form_fields = array_merge( $general_form_fields, $kurir_form_fields );
 				}
@@ -97,7 +95,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'label' => 'TIKI',
 						'cost' => 11000,
 					);
-
+					
 					// Register the rate
 					$this->add_rate( $rate );
 					$this->add_rate( $rate2 );
